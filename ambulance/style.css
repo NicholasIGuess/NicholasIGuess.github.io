@@ -1,0 +1,134 @@
+@font-face {
+  font-family: 'MellowLight';
+  src: url('resources/MADEMellowPERSONALUSE-Light.woff2') format('woff2'),
+      url('resources/MADEMellowPERSONALUSE-Light.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'MellowMedium';
+  src: url('resources/MADEMellowPERSONALUSE-Medium.woff2') format('woff2'),
+      url('resources/MADEMellowPERSONALUSE-Medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+#main{
+  padding: 15px;
+  text-align: center;
+}
+
+body {
+  background-color: salmon;
+  font-family: 'MellowLight';
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+#grid-container {
+  display: grid;
+  grid-template-columns: repeat(16, 50px);
+  grid-template-rows: repeat(9, 50px);
+  gap: 10px;
+} 
+
+.go-button {
+  background-color: rgb(157, 192, 120);
+  position: fixed;
+  bottom: 0;
+  left: 45%;
+  width: 10%;
+  height: 10%;
+  font-size: 30px;
+}
+
+@keyframes go-button-animation {
+  0%   { transform: translate(0, 0) }
+  10%  { transform: translate(0, -1px) }
+  25%  { transform: translate(0, -2px) }
+  45%  { transform: translate(0, -3px) }
+  50%  { transform: translate(0, -4px) }
+  75%  { transform: translate(0, -5px) }
+  100% { transform: translate(0, -6px) }
+}
+
+.go-button:hover {
+  box-shadow: 0px 0px 20px rgb(0, 0, 0);
+  animation: go-button-animation 0.3s ease-in-out forwards;
+}
+
+.clear-button {
+  background-color: rgb(255, 71, 76);
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 10%;
+  height: 10%;
+  font-size: 30px;
+}
+
+@keyframes clear-button-animation {
+  0%   { transform: translate(0, 0) }
+  10%  { transform: translate(-1px, -1px) }
+  25%  { transform: translate(-2px, -2px) }
+  45%  { transform: translate(-3px, -3px) }
+  50%  { transform: translate(-4px, -4px) }
+  75%  { transform: translate(-5px, -5px) }
+  100% { transform: translate(-6px, -6px) }
+}
+
+.clear-button:hover {
+  box-shadow: 0px 0px 20px rgb(0, 0, 0);
+  animation: clear-button-animation 0.3s ease-in-out forwards;
+}
+
+.clear-path-button {
+  background-color: rgb(252, 240, 167);
+  position: fixed;
+  bottom: 0;
+  width: 12%;
+  height: 10%;
+  font-size: 30px;
+}
+
+@keyframes clear-path-button-animation {
+  0%   { transform: translate(0, 0) }
+  10%  { transform: translate(1px, -1px) }
+  25%  { transform: translate(2px, -2px) }
+  45%  { transform: translate(3px, -3px) }
+  50%  { transform: translate(4px, -4px) }
+  75%  { transform: translate(5px, -5px) }
+  100% { transform: translate(6px, -6px) }
+}
+
+.clear-path-button:hover {
+  box-shadow: 0px 0px 20px rgb(0, 0, 0);
+  animation: clear-path-button-animation 0.3s ease-in-out forwards;
+}
+
+.square {
+  background-color: rgb(44, 139, 255);
+  width: 50px;
+  height: 50px;
+  font-family: 'MellowLight';
+  text-align: center;
+  color: black;
+  outline: none;
+  padding: 0px;
+}
+
+.square:hover {
+  color: black;
+}
+
+.square:active {
+  color: black;
+}
