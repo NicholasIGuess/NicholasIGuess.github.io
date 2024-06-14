@@ -1,3 +1,10 @@
+function adjustParallaxContainerHeight() {
+    const parallaxContainer = document.getElementById('parallax-container');
+    var contentHeight = parallaxContainer.scrollHeight;
+    contentHeight += 10;
+    parallaxContainer.style.height = `${contentHeight}px`;
+}
+
 function scrollToSection(sectionId) {
     const section = document.getElementById(sectionId);
     section.scrollIntoView({ behavior: 'smooth' });
@@ -28,3 +35,6 @@ document.querySelectorAll('nav a').forEach(anchor => {
         scrollToSection(sectionId);
     });
 });
+
+window.addEventListener('resize', adjustParallaxContainerHeight);
+window.addEventListener('load', adjustParallaxContainerHeight);
