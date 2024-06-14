@@ -85,20 +85,21 @@ footer p {
 
 .scrollToTopBtn {
     position: fixed;
-    bottom: 20px;
+    bottom: 45px;
     right: 20px;
     background-color: #333;
     color: #fff;
-    width: 40px;
-    height: 40px;
+    width: 70px;
+    height: 50px;
     border: none;
-    border-radius: 50%;
+    border-radius: 10px;
     font-size: 24px;
     cursor: pointer;
     display: none;
     opacity: 0.5; /* Set initial opacity */
     transition: opacity 0.3s; /* Add transition for smooth effect */
 }
+
 
 .scrollToTopBtn:hover {
     background-color: #555;
