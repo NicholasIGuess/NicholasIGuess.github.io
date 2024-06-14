@@ -22,14 +22,14 @@ function initButtons() {
             square.classList.add('btn-light');
             square.onclick = function () {
                 if (square.textContent == "") {
-                    square.textContent = "Start";
-                    square.style.backgroundColor = "green";
-                    map[i][j] = 0;
-                } else if (square.textContent == "Start") {
                     square.textContent = "Block";
                     square.style.backgroundColor = "red";
                     map[i][j] = 1;
                 } else if (square.textContent == "Block") {
+                    square.textContent = "Start";
+                    square.style.backgroundColor = "green";
+                    map[i][j] = 0;
+                } else if (square.textContent == "Start") {
                     square.textContent = "End";
                     square.style.backgroundColor = "white";
                     map[i][j] = 0;
