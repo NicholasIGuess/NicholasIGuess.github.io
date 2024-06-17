@@ -1,7 +1,8 @@
+// script.js
 function adjustParallaxContainerHeight() {
     const parallaxContainer = document.getElementById('parallax-container');
     var contentHeight = parallaxContainer.scrollHeight;
-    contentHeight += 10;
+    contentHeight += 50;
     parallaxContainer.style.height = `${contentHeight}px`;
 }
 

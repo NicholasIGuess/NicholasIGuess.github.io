@@ -1,3 +1,4 @@
+/* style.css */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
 
 body {
@@ -12,6 +13,7 @@ header {
     color: #fff;
     padding: 5px;
     text-align: center;
+    position: relative;
 }
 
 .backbtn {
@@ -51,9 +53,8 @@ header {
     background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
-    background-size: 100% 100%;
+    background-size: cover;
 }
-
 
 nav {
     background-color: #333;
@@ -65,19 +66,18 @@ nav ul {
     margin: 0;
     padding: 0;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 
 nav li {
-    margin-right: 100px;
-    margin-left: 100px;
+    margin: 0 20px;
 }
 
 nav a {
     color: #fff;
     text-decoration: none;
     padding: 10px;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
     display: inline-block;
 }
@@ -91,7 +91,10 @@ nav a:hover {
 
 section {
     padding: 20px;
-    color: #d3d3d3;
+    color: #2c2c2c;
+    background-color: rgba(255, 255, 255, 0.6);
+    margin: 20px;
+    border-radius: 10px;
 }
 
 footer {
@@ -125,7 +128,6 @@ footer p {
     opacity: 0.5; /* Set initial opacity */
     transition: opacity 0.3s; /* Add transition for smooth effect */
 }
-
 
 .scrollToTopBtn:hover {
     background-color: #555;
