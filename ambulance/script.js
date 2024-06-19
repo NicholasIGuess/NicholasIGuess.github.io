@@ -303,3 +303,48 @@ async function clearPath() {
         }
     }
 }
+
+function info() {
+    // create a modal
+    var modal = document.createElement("div");
+    modal.style.display = "block";
+    modal.style.position = "fixed";
+    modal.style.top = "0";
+    modal.style.left = "0";
+    modal.style.width = "100%";
+    modal.style.height = "100%";
+    modal.style.backgroundColor = "rgba(0,0,0,0.5)";
+
+    // create modal content
+    var modalContent = document.createElement("div");
+    modalContent.style.position = "relative";
+    modalContent.style.top = "25%";
+    modalContent.style.left = "30%";
+    modalContent.style.width = "40%";
+    modalContent.style.backgroundColor = "white";
+    modalContent.style.padding = "20px";
+
+    // create close button
+    var closeButton = document.createElement("span");
+    closeButton.innerHTML = "&times;";
+    closeButton.style.position = "absolute";
+    closeButton.style.top = "0";
+    closeButton.style.right = "10px";
+    closeButton.style.fontSize = "30px";
+    closeButton.style.cursor = "pointer";
+    closeButton.addEventListener("click", function() {
+        modal.style.display = "none";
+    });
+
+    // create text
+    var text = document.createElement("p");
+    text.innerHTML = "This website is designed to help ambulance personnel find the most efficient route to a location in need. The website uses Dijkstra's algorithm to calculate the shortest path between two points."
+
+    // add elements to modal
+    modalContent.appendChild(closeButton);
+    modalContent.appendChild(text);
+
+    // append modal to body
+    modal.appendChild(modalContent);
+    document.body.appendChild(modal);
+}

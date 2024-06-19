@@ -17,13 +17,10 @@
 }
 
 .info {
-  -ms-transform: scale(0.1, 0.1); /* IE 9 */
-  -webkit-transform: scale(0.1, 0.1); /* Safari */
-  transform: scale(0.1, 0.1);
-  position: absolute;
+  position: fixed;
   z-index: 9999;
-  top: 10px;
-  right: 10px;
+  top: 1%;
+  right: 1%;
   padding: 0.5rem 1rem;
   color: #333;
   font-size: 1rem;
