@@ -23,7 +23,8 @@
   right: 1%;
   padding: 0.5rem 1rem;
   color: #333;
-  font-size: 1rem;
+  font-family: 'MellowMedium';
+  font-size: larger;
   font-weight: 700;
   cursor: pointer;
   transition: background-color 0.3s ease;
