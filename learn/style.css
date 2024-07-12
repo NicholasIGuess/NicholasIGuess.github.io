@@ -22,6 +22,17 @@
     color: #fff;
 }
 
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;500;600;700&display=swap');
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto Slab', serif;
+    background-image: linear-gradient(to right, #b2ff59, #ff8f00);
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+}
+
 header {
     display: flex;
     flex-direction: column;
@@ -30,4 +41,27 @@ header {
     height: 95vh;
     width: 100%;
     overflow: hidden;
+    font-family: 'Roboto Slab', serif;
+    color: #333;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    body {
+        background-image: linear-gradient(to right, #0f2f52, #ff8f00);
+    }
+    header {
+        color: #F3F3F3;
+    }
 }
