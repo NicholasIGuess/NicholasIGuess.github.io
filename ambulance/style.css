@@ -23,7 +23,7 @@
   right: 1%;
   padding: 0.5rem 1rem;
   color: #333;
-  font-family: 'MellowMedium';
+  font-family: 'MellowMedium', sans-serif;
   font-size: larger;
   font-weight: 700;
   cursor: pointer;
@@ -32,7 +32,7 @@
 }
 
 .backbtn {
-  position: absolute;
+  position: fixed;
   z-index: 9999;
   top: 0.5rem;
   left: 0.5rem;
@@ -46,12 +46,15 @@
   cursor: pointer;
   transition: background-color 0.3s ease;
   transition: color 0.3s ease;
+  font-family: sans-serif;
+  height: 35px;
+  line-height: 20px;
 }
 
 .backbtn:hover {
   background-color: #11d84d;
   color: #fff;
-  }
+}
 
 #main{
   padding: 15px;
@@ -60,7 +63,7 @@
 
 body {
   background-color: salmon;
-  font-family: 'MellowLight';
+  font-family: 'MellowLight', sans-serif;
 }
 
 .center {

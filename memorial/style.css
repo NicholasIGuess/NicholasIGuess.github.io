@@ -17,7 +17,7 @@ header {
 }
 
 .backbtn {
-    position: absolute;
+    position: fixed;
     z-index: 9999;
     top: 0.5rem;
     left: 0.5rem;
