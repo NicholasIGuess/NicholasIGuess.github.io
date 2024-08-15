@@ -1,0 +1,23 @@
+fieldset {
+    padding: auto;
+    margin: auto;
+    width: 80%;
+    max-width: 600px;
+}
+
+form {
+    width: 100%;
+}
+
+.form-group {
+    width: 100%;
+}
+
+.btn-primary {
+    width: 100%;
+    min-height: 50px;
+}
+
+textarea {
+    width: 100%;
+}
