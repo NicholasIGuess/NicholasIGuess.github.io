@@ -1,0 +1,85 @@
+.backbtn {
+    position: fixed;
+    z-index: 9999;
+    top: 0.5rem;
+    left: 0.5rem;
+    padding: 0.5rem 1rem;
+    background-color: #fff;
+    color: #333;
+    border: 1px solid #333;
+    border-radius: 0.25rem;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    transition: color 0.3s ease;
+    font-family: sans-serif;
+    height: 35px;
+}
+
+.backbtn:hover {
+    background-color: #11d84d;
+    color: #fff;
+}
+
+img {
+    width: 20%;
+}
+
+.big {
+    width: 60%;
+}
+
+.center {
+    text-align: center;
+}
+  
+body {
+    background-image: url(../cooking.png);
+    background-size: cover;
+    font-family: sans-serif;
+    padding: 20px;
+}
+
+.content {
+    width: 80%;
+    background-color: burlywood;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px;
+    max-width: 700px;
+}
+
+h1, h2 {
+    font-family: Impact, serif;
+    font-weight: 100;
+    text-align: center;
+}
+
+h1 {
+    font-size: 40px;
+    margin-top: 0;
+    margin-bottom: 15px;
+    letter-spacing: 1px;
+}
+
+hr {
+    height: 2px;
+    background-color: black;
+    border-color: black;
+    border-width: 3px;
+}
+
+a {
+    text-decoration: none;
+}
+
+li {
+    width: 95%;
+    margin: auto;
+    padding: 1%;
+}
+
+p {
+    margin-bottom: 5px;
+}
