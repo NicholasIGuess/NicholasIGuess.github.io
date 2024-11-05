@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="style.css" rel="stylesheet" />
+    <title>hackmato</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+</head>
+
+<body>
+    <header>
+        <a href="../"><button class="backbtn">Back</button></a>
+    </header>
+
+    <div class="content">
+        <main>
+            <h1>hackmato</h1>
+            <h2>a pomodoro timer for your next hackathon</h2>
+
+            <div class="timer">
+                <p id="count">25:00</p>
+                <p id="phase">press start!</p>
+                <div class="controls">
+                    <button class="playback" id="start" onclick="start()">start</button>
+                    <button class="playback" id="pause" onclick="pause()">pause</button>
+                    <button class="playback" id="reset" onclick="reset()">reset</button>
+                </div>
+            </div>
+            <div id="settings">
+                <p class="settingsTip" onclick="openSettings()">⚙️settings (click me!)</p>
+                <p class="invisible">how many minutes is your working time? <input oninput="update()" type="number" id="work" value="25"></p>
+                <p class="invisible">how many minutes is your short break? <input oninput="update()" type="number" id="break" value="5"></p>
+                <p class="invisible">how many minutes is your long break? <input oninput="update()" type="number" id="rest" value="30"></p>
+                <p class="invisible">how many short breaks do you want before a long break? <input oninput="update()" type="number" id="breaks" value="4"></p>
+            </div>
+            <br>
+            <p>hackathons are fun. but let's face it, there's always that one group member that never does any work.</p>
+            <p>they code for half an hour, say they "locked in", and then take a 4 hour break to play brawl stars.</p>
+            <p>what if you gave them a timer that included breaks?</p>
+            <p>hackmato is a pomodoro timer for your next hackathon, with breaks already started at 5 minutes (the length of a brawl stars match!).</p>
+            <p>you can change the working time, short break time, long break time, and how many short breaks before a long break.</p>
+        </main>
+    </div>
+</body>
+<script src="script.js"></script>
+</html>
