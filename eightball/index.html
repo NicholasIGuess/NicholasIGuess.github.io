@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magic Eight Ball (!)</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="particles.min.js" defer></script>
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <header>
+        <a href="../"><button class="backbtn">Back</button></a>
+    </header>
+    <div id="scene">
+        <div id="content">
+            <div class="section">
+                <h1>Ask the Magic Eight Ball</h1>
+                <input type="text" id="question" placeholder="Type your question..." />
+                <button id="button">Shake the Ball</button>
+
+                <div class="ball" id="ball">
+                    <div class="window">
+                        <div class="answer" id="answer">?</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
