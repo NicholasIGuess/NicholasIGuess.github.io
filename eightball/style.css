@@ -51,11 +51,9 @@ body {
     top: 5%;
     left: 35%;
     right: 35%;
-    position: absolute;
     width: 30%;
+    position: absolute;
     margin: auto;
-    padding: auto;
-    height: 90%;
     z-index: 1;
 }
 
@@ -66,6 +64,7 @@ body {
     margin-bottom: 20px;
     width: 100%;
     height: 100%;
+    padding-bottom: 5%;
     z-index: 2;
     background-color: rgba(70, 70, 70, 0.7);
     border-radius: 5%;
@@ -73,27 +72,33 @@ body {
 }
 
 h1 {
-    margin-top: 75px;
-    margin-bottom: 20px;
+    margin-top: 7.5%;
+    margin-bottom: 2%;
+    font-size: 2vw;
 }
 
 .ball {
-    width: 500px;
-    height: 500px;
+    width: 25vw;
+    height: 25vw;
+    max-width: 500px;
+    max-height: 500px;
+    aspect-ratio: 1 / 1;
     background-color: black;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 50px;
-    margin-bottom: 20px;
+    margin-top: 10%;
+    margin-bottom: 2%;
     box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
     transition: transform 0.3s ease;
 }
 
 .window {
-    width: 150px;
-    height: 150px;
+    width: 12vw;
+    height: 12vw;
+    max-width: 30%;
+    max-height: 30%;
     background-color: #0a0a0a;
     border-radius: 50%;
     display: flex;
@@ -106,8 +111,8 @@ h1 {
     color: #00e5ff;
     font-weight: bold;
     text-align: center;
-    padding: 10px;
-    font-size: 1.5em;
+    padding: 2%;
+    font-size: 1.3vw;
     opacity: 0;
     transition: opacity 0.4s ease;
 }
@@ -115,15 +120,15 @@ h1 {
 input {
     background-color: #333;
     color: white;
-    padding: 10px;
-    width: 250px;
+    padding: 2%;
+    width: 50%;
     border: 2px solid gray;
     border-radius: 5px;
     margin-bottom: 10px;
 }
 
 button {
-    padding: 10px 20px;
+    padding: 2% 4%;
     background-color: #00e5ff;
     color: black;
     border: none;
