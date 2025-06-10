@@ -31,6 +31,11 @@ function shake() {
         return;
     }
 
+    let sndfjsd = false;
+    if (input === "yo gurt" || input === "yogurt") {
+        sndfjsd = true;
+    }
+
     // ball.classList.remove("shake");
     // void ball.offsetWidth; //thank you copilot!
     // ball.classList.add("shake");
@@ -55,7 +60,12 @@ function shake() {
         }, i * delay + 200);
     }
 
-    const response = answers[Math.floor(Math.random() * answers.length)];
+    let response = "default";
+    if (!sndfjsd) {
+        response = answers[Math.floor(Math.random() * answers.length)];
+    } else {
+        response = "gurt: yo";
+    }
     setTimeout(() => {
         answer.textContent = response;
         answer.style.opacity = 1;
