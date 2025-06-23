@@ -1,3 +1,27 @@
+.backbtn {
+    position: fixed;
+    z-index: 9999;
+    top: 0.5rem;
+    left: 0.5rem;
+    padding: 0.5rem 1rem;
+    background-color: #fff;
+    color: #333;
+    border: 1px solid #333;
+    border-radius: 0.25rem;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    transition: color 0.3s ease;
+    font-family: sans-serif;
+    height: 35px;
+}
+
+.backbtn:hover {
+    background-color: #11d84d;
+    color: #fff;
+}
+
 body {
     background-color: #121212;
     color: white;

@@ -1,7 +1,7 @@
 # Magic 8-Ball
 
 A simple little Magic 8-Ball that answers your yes/no questions with the original responses. Built with HTML, CSS, and JavaScript.
-I'm planning on making a bunch of things as a divination series (e.g coin flip, tarot cards, etc.), and this is the first
+I'm planning on making a bunch of things as a divination series (e.g coin flip, tarot cards, spinner wheel, drawing straws, etc.), and this is the first
 
 ![Screenshot](screenshot.png)
 
