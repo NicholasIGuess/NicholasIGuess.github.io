@@ -273,53 +273,136 @@ addFunTerrainFeatures();
 function addBillboard(x, z, text, camPos, camLook) {
   // Compute angle to center (0,0)
   const angle = Math.atan2(x, z); // billboard faces center
-  // Text (canvas texture, much larger, with shadow for contrast)
+  // Lower-res canvas for performance
+  const CANVAS_W = 1024, CANVAS_H = 384;
   const canvas = document.createElement('canvas');
-  canvas.width = 4096; canvas.height = 1536; // 2x larger for higher-res
+  canvas.width = CANVAS_W; canvas.height = CANVAS_H;
   const ctx = canvas.getContext('2d');
-  ctx.clearRect(0, 0, 4096, 1536);
-  // Gradient background for visual appeal
-  const grad = ctx.createLinearGradient(0, 0, 4096, 1536);
-  grad.addColorStop(0, '#f9d923');
-  grad.addColorStop(0.5, '#f8fafc');
-  grad.addColorStop(1, '#36c2f7');
-  ctx.fillStyle = grad;
-  ctx.fillRect(0, 0, 4096, 1536);
-  // Decorative border
-  ctx.lineWidth = 32;
-  ctx.strokeStyle = '#232946';
-  ctx.strokeRect(16, 16, 4096 - 32, 1536 - 32);
-  // Large, bold, modern font with shadow
-  ctx.font = 'bold 600px "Arial Black", Arial, Helvetica, sans-serif';
-  ctx.textAlign = 'center';
-  ctx.textBaseline = 'middle';
-  ctx.shadowColor = '#232946';
-  ctx.shadowBlur = 64;
-  ctx.shadowOffsetX = 0;
-  ctx.shadowOffsetY = 0;
-  ctx.fillStyle = '#232946';
-  ctx.fillText(text.toUpperCase(), 2048, 768);
-  ctx.shadowBlur = 0;
-  // Add a white stroke for extra clarity
-  ctx.lineWidth = 32;
-  ctx.strokeStyle = '#fafafa';
-  ctx.strokeText(text.toUpperCase(), 2048, 768);
-  // Add a subtle drop shadow for 3D effect
-  ctx.shadowColor = '#00000088';
-  ctx.shadowBlur = 32;
-  ctx.fillStyle = 'rgba(0,0,0,0.12)';
-  ctx.fillRect(64, 64, 4096 - 128, 1536 - 128);
+  // Store billboard animation state
+  const billboardAnim = { canvas, ctx, tex: null, text, lastWaveT: 0, lastDrawFrame: 0 };
+  // Billboard redraw function with animated waves
+  function drawBillboardWaves(time) {
+    ctx.clearRect(0, 0, CANVAS_W, CANVAS_H);
+    // Softer, lighter gradient background for index.html style
+    const grad = ctx.createLinearGradient(0, 0, CANVAS_W, CANVAS_H);
+    grad.addColorStop(0, '#f4f5ff');
+    grad.addColorStop(0.5, '#f8fafc');
+    grad.addColorStop(1, '#f5d0fe');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, CANVAS_W, CANVAS_H);
+    // --- Animated SVG-like wave (left and right, more points, y-variation) ---
+    const t = time * 0.001;
+    const points = 44;
+    const baseAmp = CANVAS_W * 0.08;
+    const xBase = CANVAS_W * 0.08;
+    // Left wave
+    ctx.save();
+    ctx.globalAlpha = 0.22;
+    ctx.beginPath();
+    ctx.moveTo(0, 0);
+    for (let i = 0; i <= points; i++) {
+      // Add y-variation for more organic look
+      let y = (CANVAS_H / points) * i;
+      y += Math.sin(t * 0.8 + i * 0.25) * 7 + Math.cos(t * 0.5 + i * 0.13) * 4;
+      const amp = baseAmp * (1.1 + 0.35 * Math.sin(t * 0.7 + i * 0.5));
+      // Decrease frequency: much smaller phase increment per point
+      const phase = t * 1.1 + i * 0.12 + Math.sin(t * 0.5 + i * 0.2) * 0.5;
+      const x = Math.sin(phase) * amp + xBase;
+      ctx.lineTo(x, y);
+    }
+    ctx.lineTo(0, CANVAS_H);
+    ctx.closePath();
+    ctx.fillStyle = '#d946ef';
+    ctx.fill();
+    ctx.restore();
+    // Right wave (mirrored)
+    ctx.save();
+    ctx.globalAlpha = 0.22;
+    ctx.translate(CANVAS_W, 0);
+    ctx.scale(-1, 1);
+    ctx.beginPath();
+    ctx.moveTo(0, 0);
+    for (let i = 0; i <= points; i++) {
+      let y = (CANVAS_H / points) * i;
+      y += Math.cos(t * 0.8 + i * 0.25 + 1.7) * 7 + Math.sin(t * 0.5 + i * 0.13 + 1.7) * 4;
+      const amp = baseAmp * (1.1 + 0.35 * Math.cos(t * 0.7 + i * 0.5 + 1.7));
+      // Decrease frequency: much smaller phase increment per point
+      const phase = t * 1.1 + i * 0.12 + 2.2 + Math.cos(t * 0.5 + i * 0.2 + 1.7) * 0.5;
+      const x = Math.sin(phase) * amp + xBase;
+      ctx.lineTo(x, y);
+    }
+    ctx.lineTo(0, CANVAS_H);
+    ctx.closePath();
+    ctx.fillStyle = '#d946ef';
+    ctx.fill();
+    ctx.restore();
+    // Decorative border (purple gradient)
+    ctx.lineWidth = 12;
+    const borderGrad = ctx.createLinearGradient(0, 0, 0, CANVAS_H);
+    borderGrad.addColorStop(0, '#d946ef');
+    borderGrad.addColorStop(1, '#a21caf');
+    ctx.strokeStyle = borderGrad;
+    ctx.strokeRect(6, 6, CANVAS_W - 12, CANVAS_H - 12);
+    // Main title: scaled for new canvas size
+    ctx.font = '900 85px Montserrat, Helvetica Neue, Arial, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.shadowColor = '#f5d0fe';
+    ctx.shadowBlur = 8;
+    ctx.fillStyle = '#232946';
+    ctx.fillText(text, CANVAS_W / 2, 168);
+    ctx.shadowBlur = 0;
+    // Subtle drop shadow for 3D effect
+    ctx.shadowColor = '#a21caf';
+    ctx.shadowBlur = 5;
+    ctx.fillStyle = 'rgba(217,70,239,0.08)';
+    ctx.fillRect(20, 20, CANVAS_W - 40, CANVAS_H - 40);
+  }
+  // Initial draw
+  drawBillboardWaves(0);
   // Texture
   const tex = new THREE.CanvasTexture(canvas);
-  tex.anisotropy = 8;
+  tex.anisotropy = 4;
   tex.needsUpdate = true;
+  billboardAnim.tex = tex;
   // Use MeshBasicMaterial for text (unlit, always visible)
   const textMat = new THREE.MeshBasicMaterial({ map: tex, transparent: false, side: THREE.FrontSide });
-  // Billboard is much larger now
+  // Billboard is much larger now, but texture is lower-res (Three.js will scale it up)
   const textMesh = new THREE.Mesh(new THREE.PlaneGeometry(32, 13), textMat);
   textMesh.position.set(x, 9.5, z); // raise higher for visibility
   textMesh.rotation.y = angle + Math.PI; // flip to face inward and not be mirrored
+  textMesh.userData = { billboardName: text, billboardCamPos: camPos, billboardCamLook: camLook, billboardAnim };
+  textMesh.cursor = 'pointer';
+  textMesh.name = `billboard-${text.toLowerCase().replace(/\s+/g, '-')}`;
   scene.add(textMesh);
+  if (!window._billboardMeshes) window._billboardMeshes = [];
+  window._billboardMeshes.push(textMesh);
+
+  // Add a child mesh for the (click me!) text, styled like h2, balanced size and no outline
+  const clickCanvas = document.createElement('canvas');
+  clickCanvas.width = 400; clickCanvas.height = 64;
+  const clickCtx = clickCanvas.getContext('2d');
+  clickCtx.clearRect(0, 0, 400, 64);
+  clickCtx.font = 'bold 32px Montserrat, Arial, sans-serif';
+  clickCtx.textAlign = 'center';
+  clickCtx.textBaseline = 'middle';
+  clickCtx.shadowColor = '#f5d0fe';
+  clickCtx.shadowBlur = 4;
+  clickCtx.fillStyle = '#d946ef';
+  clickCtx.fillText('(click me!)', 200, 32);
+  clickCtx.shadowBlur = 0;
+  // No outline/stroke for better legibility
+  const clickTex = new THREE.CanvasTexture(clickCanvas);
+  clickTex.anisotropy = 4;
+  clickTex.needsUpdate = true;
+  const clickMat = new THREE.MeshBasicMaterial({ map: clickTex, transparent: true, side: THREE.FrontSide });
+  const clickMesh = new THREE.Mesh(new THREE.PlaneGeometry(10, 2.1), clickMat);
+  clickMesh.position.set(0, -4.3, 0.01); // just below the main title
+  clickMesh.visible = false;
+  textMesh.add(clickMesh);
+  textMesh.userData.clickMesh = clickMesh;
+  // Attach the redraw function for animation
+  textMesh.userData.redrawBillboardWaves = drawBillboardWaves;
 }
 // Billboard snap zones: NW, NE, SE corners (same as billboards)
 const billboardData = [
@@ -519,6 +602,15 @@ function updateCamera() {
       break;
     }
   }
+  setBillboardClickable(!!snap);
+  // Show/hide (click me!) text on billboards
+  if (window._billboardMeshes) {
+    for (const mesh of window._billboardMeshes) {
+      if (mesh.userData && mesh.userData.clickMesh) {
+        mesh.userData.clickMesh.visible = !!snap && mesh.userData.billboardName.toLowerCase() === snap?.name.toLowerCase();
+      }
+    }
+  }
   // Smoothly transition in/out of snap mode
   if (snap) {
     if (inBillboardZone !== snap) camSnapLerp = 0; // entering new zone
@@ -558,6 +650,59 @@ function updateCamera() {
 
 // Track the last billboard zone for smooth exit
 let lastBillboardZone = null;
+// --- Billboard info popup/modal ---
+let infoModal = null;
+function showBillboardInfo(name) {
+  if (infoModal) infoModal.remove();
+  infoModal = document.createElement('div');
+  infoModal.className = 'billboard-info-modal';
+  // Content for each billboard
+  let html = '';
+  if (name.toLowerCase() === 'about me') {
+    html = `
+      <h2>about me!</h2>
+      <ul>
+        <li>hi, i'm kavin!</li>
+        <li>i am an aspiring software engineer, currently in high school.</li>
+        <li>i live in princeton, nj.</li>
+        <li>on the internet, i often go by <span class="username">NicholasIGuess</span>, <span class="username">NichSembley</span>, or sometimes <span class="username">Antipanic</span>.</li>
+        <li>i, along with a few of my friends, go to hackathons and make stuff a lot. check the projects billboard!</li>
+      </ul>
+      <h2>contact me on:</h2>
+      <ul>
+        <li><a href="https://github.com/NicholasIGuess" target="_blank">Github</a></li>
+        <li><a href="mailto:nichiguess@gmail.com">Email</a></li>
+      </ul>
+    `;
+  } else if (name.toLowerCase() === 'projects') {
+    html = `
+      <h2>things I've made</h2>
+      <ul>
+        <li><a href="/ambulance/">ambulance tracker</a> (made in 8 hours for MakeSPP 2024)</li>
+        <li><a href="/memorial/">rwandan genocide memorial</a> (made for World History 1 in school)</li>
+        <li><a href="/cooking/">cooking</a> (just stuff for the cooking merit badge)</li>
+        <li><a href="/hackmato/">hackmato</a> (a pomodoro timer for hackathons)</li>
+        <li><a href="/eightball/">eight ball</a> (a magic 8 ball web app)</li>
+        <li>tempus - work in progress so no link yet (made for fun because I was bored)</li>
+      </ul>
+    `;
+  } else if (name.toLowerCase() === 'fun') {
+    html = `<h2>Fun</h2><p>Drive around and explore! 🚗</p>`;
+  }
+  infoModal.innerHTML = `
+    <div class="billboard-info-content">
+      <button class="billboard-info-close" title="Close">&times;</button>
+      ${html}
+    </div>
+  `;
+  document.body.appendChild(infoModal);
+  // Close logic
+  infoModal.querySelector('.billboard-info-close').onclick = () => infoModal.remove();
+  infoModal.onclick = e => { if (e.target === infoModal) infoModal.remove(); };
+}
+
+// --- Auto-close info popup when leaving billboard zone ---
+let lastPopupZone = null;
 function updateCameraWrapper() {
   // Save the previous inBillboardZone before updateCamera
   const prevZone = inBillboardZone;
@@ -566,6 +711,13 @@ function updateCameraWrapper() {
     lastBillboardZone = inBillboardZone;
   } else if (camSnapLerp > 0 && prevZone) {
     lastBillboardZone = prevZone;
+  }
+  // Auto-close info popup if leaving the zone
+  if (infoModal) {
+    if (!inBillboardZone) {
+      infoModal.remove();
+      infoModal = null;
+    }
   }
 }
 
@@ -644,10 +796,195 @@ function updateCar() {
   }
 }
 
+// --- Billboard interaction (raycasting) ---
+const raycaster = new THREE.Raycaster();
+let mouse = new THREE.Vector2();
+let billboardClickable = false;
+let lastHoveredBillboard = null;
+
+function setBillboardClickable(state) {
+  billboardClickable = state;
+  renderer.domElement.style.cursor = state ? 'pointer' : '';
+}
+
+renderer.domElement.addEventListener('pointermove', e => {
+  if (!billboardClickable) return;
+  const rect = renderer.domElement.getBoundingClientRect();
+  mouse.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+  mouse.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+  raycaster.setFromCamera(mouse, camera);
+  const intersects = raycaster.intersectObjects(window._billboardMeshes || []);
+  if (intersects.length > 0) {
+    renderer.domElement.style.cursor = 'pointer';
+    lastHoveredBillboard = intersects[0].object;
+  } else {
+    renderer.domElement.style.cursor = '';
+    lastHoveredBillboard = null;
+  }
+});
+
+renderer.domElement.addEventListener('pointerdown', e => {
+  if (!billboardClickable) return;
+  if (lastHoveredBillboard) {
+    showBillboardInfo(lastHoveredBillboard.userData.billboardName);
+  }
+});
+
+/* Add popup/modal styles */
+const style = document.createElement('style');
+style.textContent = `
+.billboard-info-modal {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(36, 14, 53, 0.13); /* reduced opacity */
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.billboard-info-content {
+  background: #f8fafc;
+  border: 8px solid #d946ef;
+  border-radius: 18px;
+  box-shadow: 0 8px 48px #a21caf33;
+  padding: 2.2rem 2.5rem 2.2rem 2.2rem;
+  max-width: 520px;
+  min-width: 320px;
+  font-family: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
+  color: #232946;
+  font-size: 1.13rem;
+  position: relative;
+  overflow: hidden;
+}
+.billboard-info-content h2 {
+  color: #d946ef;
+  font-size: 1.35rem;
+  margin-top: 0.2em;
+  margin-bottom: 0.7em;
+  font-family: 'Montserrat', Arial, sans-serif;
+  font-weight: 700;
+}
+.billboard-info-content ul {
+  list-style: square inside;
+  margin-bottom: 1.2em;
+  padding-left: 0;
+}
+.billboard-info-content a {
+  color: #a21caf;
+  text-decoration: underline;
+}
+.billboard-info-close {
+  position: absolute;
+  top: 0.7em;
+  right: 1.1em;
+  background: none;
+  border: none;
+  font-size: 2.1rem;
+  color: #a21caf;
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: bold;
+  line-height: 1;
+  padding: 0;
+}
+`;
+document.head.appendChild(style);
+
+// --- Billboard wave animation ---
+function animateBillboardWaves(time) {
+  if (!window._billboardMeshes) return;
+  for (const mesh of window._billboardMeshes) {
+    const canvas = mesh.userData.waveCanvas;
+    const ctx = mesh.userData.waveCtx;
+    const text = mesh.userData.waveText;
+    if (!canvas || !ctx) continue;
+    // Animate control points with time
+    const t = time * 0.001;
+    ctx.clearRect(0, 0, 4096, 1536);
+    // Gradient background
+    const grad = ctx.createLinearGradient(0, 0, 4096, 1536);
+    grad.addColorStop(0, '#f4f5ff');
+    grad.addColorStop(0.5, '#f8fafc');
+    grad.addColorStop(1, '#f5d0fe');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, 4096, 1536);
+    // --- Animated SVG wave (left) ---
+    ctx.save();
+    ctx.globalAlpha = 0.22;
+    ctx.beginPath();
+    ctx.moveTo(0, 0);
+    // Animate control points with sine/cos
+    const wave1 = 400 + Math.sin(t * 1.2) * 60;
+    const wave2 = 800 + Math.cos(t * 0.9 + 1.2) * 80;
+    ctx.bezierCurveTo(0, wave1, 0, wave2, 0, 1536);
+    const wave3 = 1200 + Math.sin(t * 1.5 + 0.7) * 90;
+    const wave4 = 900 + Math.cos(t * 1.1 + 2.1) * 70;
+    ctx.bezierCurveTo(180, wave3, 220, wave4, 0, 0);
+    ctx.closePath();
+    ctx.fillStyle = '#d946ef';
+    ctx.fill();
+    ctx.restore();
+    // --- Animated SVG wave (right, mirrored) ---
+    ctx.save();
+    ctx.globalAlpha = 0.22;
+    ctx.translate(4096, 0);
+    ctx.scale(-1, 1);
+    ctx.beginPath();
+    ctx.moveTo(0, 0);
+    // Use different phase for right wave for variety
+    const wave1r = 400 + Math.sin(t * 1.2 + 2.5) * 60;
+    const wave2r = 800 + Math.cos(t * 0.9 + 3.7) * 80;
+    ctx.bezierCurveTo(0, wave1r, 0, wave2r, 0, 1536);
+    const wave3r = 1200 + Math.sin(t * 1.5 + 2.2) * 90;
+    const wave4r = 900 + Math.cos(t * 1.1 + 4.1) * 70;
+    ctx.bezierCurveTo(180, wave3r, 220, wave4r, 0, 0);
+    ctx.closePath();
+    ctx.fillStyle = '#d946ef';
+    ctx.fill();
+    ctx.restore();
+    // Decorative border (purple gradient)
+    ctx.lineWidth = 44;
+    const borderGrad = ctx.createLinearGradient(0, 0, 0, 1536);
+    borderGrad.addColorStop(0, '#d946ef');
+    borderGrad.addColorStop(1, '#a21caf');
+    ctx.strokeStyle = borderGrad;
+    ctx.strokeRect(22, 22, 4096 - 44, 1536 - 44);
+    // Main title
+    ctx.font = '900 340px Montserrat, Helvetica Neue, Arial, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.shadowColor = '#f5d0fe';
+    ctx.shadowBlur = 32;
+    ctx.fillStyle = '#232946';
+    ctx.fillText(text, 2048, 670);
+    ctx.shadowBlur = 0;
+    ctx.shadowColor = '#a21caf';
+    ctx.shadowBlur = 18;
+    ctx.fillStyle = 'rgba(217,70,239,0.08)';
+    ctx.fillRect(80, 80, 4096 - 160, 1536 - 160);
+    // Mark texture for update
+    if (mesh.material.map) mesh.material.map.needsUpdate = true;
+  }
+}
+
 function animate() {
   requestAnimationFrame(animate);
   updateCar();
   updateCameraWrapper();
+  // Animate billboard waves every 3rd frame only
+  if (window._billboardMeshes) {
+    const now = performance.now();
+    if (!window._billboardFrame) window._billboardFrame = 0;
+    window._billboardFrame++;
+    if (window._billboardFrame % 3 === 0) {
+      for (const mesh of window._billboardMeshes) {
+        if (mesh.userData && mesh.userData.redrawBillboardWaves && mesh.userData.billboardAnim) {
+          mesh.userData.redrawBillboardWaves(now);
+          mesh.userData.billboardAnim.tex.needsUpdate = true;
+        }
+      }
+    }
+  }
   renderer.render(scene, camera);
 }
 animate();
