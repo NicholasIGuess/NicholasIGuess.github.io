@@ -687,7 +687,7 @@ function showBillboardInfo(name) {
       </ul>
     `;
   } else if (name.toLowerCase() === 'fun') {
-    html = `<h2>Fun</h2><p>Drive around and explore! 🚗</p>`;
+    html = `<h2>Fun</h2><p>drive around and have fun! i'll add a racetrack sort of thing at some point</p>`;
   }
   infoModal.innerHTML = `
     <div class="billboard-info-content">
@@ -971,16 +971,24 @@ function animate() {
   requestAnimationFrame(animate);
   updateCar();
   updateCameraWrapper();
-  // Animate billboard waves every 3rd frame only
+  // Animate billboard waves every 3rd frame only, and only if billboard is in camera frustum
   if (window._billboardMeshes) {
     const now = performance.now();
     if (!window._billboardFrame) window._billboardFrame = 0;
     window._billboardFrame++;
     if (window._billboardFrame % 3 === 0) {
+      // Setup frustum for visibility check
+      const frustum = new THREE.Frustum();
+      const camViewProj = new THREE.Matrix4();
+      camViewProj.multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse);
+      frustum.setFromProjectionMatrix(camViewProj);
       for (const mesh of window._billboardMeshes) {
-        if (mesh.userData && mesh.userData.redrawBillboardWaves && mesh.userData.billboardAnim) {
-          mesh.userData.redrawBillboardWaves(now);
-          mesh.userData.billboardAnim.tex.needsUpdate = true;
+        // Only update if at least partially in view
+        if (frustum.intersectsObject(mesh)) {
+          if (mesh.userData && mesh.userData.redrawBillboardWaves && mesh.userData.billboardAnim) {
+            mesh.userData.redrawBillboardWaves(now);
+            mesh.userData.billboardAnim.tex.needsUpdate = true;
+          }
         }
       }
     }
