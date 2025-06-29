@@ -133,3 +133,12 @@ ul {
     font-size: 1rem;
   }
 }
+
+.username {
+  font-family: 'Fira Mono', 'Courier New', monospace;
+  background: #f5d0fe;
+  color: #a21caf;
+  border-radius: 0.4rem;
+  padding: 0.09rem 0.32rem;
+  font-size: 0.97em;
+}

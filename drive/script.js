@@ -649,7 +649,6 @@ const friction = 0.98;
 const steerSpeed = 0.035;
 
 const instructionBar = document.getElementById("instruction-bar");
-const speedometer = document.getElementById("speedometer");
 let drivingStarted = false;
 
 const keys = {
@@ -761,6 +760,7 @@ function showBillboardInfo(name) {
                 <li>i am an aspiring software engineer, currently in high school.</li>
                 <li>i live in princeton, nj.</li>
                 <li>on the internet, i often go by <span class="username">NicholasIGuess</span>, <span class="username">NichSembley</span>, or sometimes <span class="username">Antipanic</span>.</li>
+                <li>this website was inspired by <a href="https://bruno-simon.com">this project</a>, go check it out!</li>
                 <li>i, along with a few of my friends, go to hackathons and make stuff a lot. check the projects billboard!</li>
             </ul>
             <h2>contact me on:</h2>
@@ -782,7 +782,7 @@ function showBillboardInfo(name) {
             </ul>
         `;
     } else if (name.toLowerCase() === "fun") {
-        html = `<h2>Fun</h2><p>drive around and have fun! i'll add a racetrack sort of thing at some point</p>`;
+        html = `<h2>Fun</h2><p>drive around and have fun! i'll add a racetrack sort of thing at some point but until then just wait ig</p>`;
     }
     infoModal.innerHTML = `
         <div class="billboard-info-content">
@@ -877,9 +877,6 @@ function updateCar() {
     car.rotation.y = carRot;
     for (const wheel of wheels) {
         wheel.rotation.x -= carSpeed * 2.5;
-    }
-    if (speedometer) {
-        speedometer.textContent = `Speed: ${(Math.abs(carSpeed) * 30).toFixed(2)}`;
     }
 }
 
