@@ -766,7 +766,7 @@ function showBillboardInfo(name) {
             <h2>contact me on:</h2>
             <ul>
                 <li><a href="https://github.com/NicholasIGuess" target="_blank">Github</a></li>
-                <li><a href="mailto:nichiguess@gmail.com">Email</a></li>
+                <li><a href="mailto:kavin.muthiah@gmail.com">Email</a></li>
             </ul>
         `;
     } else if (name.toLowerCase() === "projects") {
