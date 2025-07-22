@@ -756,7 +756,7 @@ function showBillboardInfo(name) {
         html = `
             <h2>about me!</h2>
             <ul>
-                <li>hi, i'm kavin!</li>
+                <li>hi, i'm KΛVIN!</li>
                 <li>i am an aspiring software engineer, currently in high school.</li>
                 <li>i live in princeton, nj.</li>
                 <li>on the internet, i often go by <span class="username">NicholasIGuess</span>, <span class="username">NichSembley</span>, or sometimes <span class="username">Antipanic</span>.</li>
