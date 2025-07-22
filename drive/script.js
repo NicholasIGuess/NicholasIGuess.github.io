@@ -767,7 +767,7 @@ function showBillboardInfo(name) {
             <ul>
                 <li><a href="https://github.com/NicholasIGuess" target="_blank" rel="noopener noreferrer">Github</a></li>
                 <li><a href="https://www.instagram.com/enoughlovefortwo/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
-                <li><a href="mailto:kavin.muthiah@gmail.com">Email</a></li>
+                <li><a href="mailto:kavin.muthiah@gmail.com" target="_blank" rel="noopener noreferrer">Email</a></li>
             </ul>
         `;
     } else if (name.toLowerCase() === "projects") {
