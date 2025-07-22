@@ -765,7 +765,8 @@ function showBillboardInfo(name) {
             </ul>
             <h2>contact me on:</h2>
             <ul>
-                <li><a href="https://github.com/NicholasIGuess" target="_blank">Github</a></li>
+                <li><a href="https://github.com/NicholasIGuess" target="_blank" rel="noopener noreferrer">Github</a></li>
+                <li><a href="https://www.instagram.com/enoughlovefortwo/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
                 <li><a href="mailto:kavin.muthiah@gmail.com">Email</a></li>
             </ul>
         `;
