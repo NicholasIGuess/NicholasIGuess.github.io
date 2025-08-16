@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>KΛVIN</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link href="/style.css" rel="stylesheet" />
+        <link href="style.css" rel="stylesheet" />
+        <script type="module" src="/script.js"></script>
+        <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    </head>
+        <body>
+            <div class="css-wave css-wave-left"></div>
+            <div class="css-wave css-wave-right"></div>
+            <div id="content">
+                <h1>KΛVIN's blog</h1>
+                <h3>hi!</h3>
+                <p>i write stuff sometimes i guess, about anything that interests me or anything i randomly think about</p>
+                <p>my posts (below) are sorted in reverse order, from most recent to longest ago</p>
+                <div id="posts"></div>
+            </div>
+        </body>
+    <script>
+        if (!customElements.get('blog-post')) {
+            class BlogPostElement extends HTMLElement {}
+            customElements.define('blog-post', BlogPostElement);
+        }
+        fetch("/posts.json")
+        .then(res => res.json())
+        .then(posts => {
+            posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+            for (const post of posts) {
+                document.getElementById("posts").innerHTML += 
+                `
+                    <blog-post onclick="window.location.href = '/blog/${post.slug}/'">
+                        <h3>${post.title}</h3> <p class="post-date">${post.date}</p>
+                        <p>${post.subtitle}</p>
+                    </blog-post>
+                `
+            }
+        });
+    </script>
+</html>

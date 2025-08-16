@@ -779,7 +779,8 @@ function showBillboardInfo(name) {
                 <li><a href="/cooking/">cooking</a> (just stuff for the cooking merit badge)</li>
                 <li><a href="/hackmato/">hackmato</a> (a pomodoro timer for hackathons)</li>
                 <li><a href="/eightball/">eight ball</a> (a magic 8 ball web app)</li>
-                <li>tempus - work in progress so no link yet (made for fun because I was bored)</li>
+                <li><a href="/blog/">blog</a> (i write stuff sometimes i guess)</li>
+                <!-- <li>tempus - work in progress so no link yet (made for fun because I was bored)</li> -->
             </ul>
         `;
     } else if (name.toLowerCase() === "fun") {

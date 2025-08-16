@@ -1,69 +1,79 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>KΛVIN</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link href="style.css" rel="stylesheet" />
-    <link rel="icon" href="favicon.ico" type="image/x-icon" />
-    <script type="module" src="script.js"></script>
-  </head>
-  <body>
-    <div id="custom-popup" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.5); z-index:1000; justify-content:center; align-items:center;">
-      <div style="background:#fff; padding:2em 3em; border-radius:12px; box-shadow:0 4px 24px rgba(0,0,0,0.2); text-align:center; max-width:90vw;">
-        <h2 style="margin-top:0;">hey wait!</h2>
-        <p>you're on the boring home page!</p>
-        <p>if you're on a phone or require accessibility, close this popup.</p>
-        <p>otherwise, click <a href="./drive/">here</a> to go to the one that's fun and interactive!</p>
-        <button id="close-popup" style="margin-top:1.5em; padding:0.5em 1.5em; font-size:1.1em; border:none; border-radius:6px; background:#0078d7; color:#fff; cursor:pointer;">close</button>
-      </div>
-    </div>
-    <script>
-      window.addEventListener('DOMContentLoaded', function() {
-        var popup = document.getElementById('custom-popup');
-        var closeBtn = document.getElementById('close-popup');
-        var inner = popup.querySelector('div');
-        popup.style.display = 'flex';
-        closeBtn.onclick = function() {
-          popup.style.display = 'none';
-        };
-        popup.addEventListener('click', function(e) {
-          if (!inner.contains(e.target)) {
-            popup.style.display = 'none';
-          }
+    <head>
+        <title>KΛVIN</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link href="style.css" rel="stylesheet" />
+        <link rel="icon" href="favicon.ico" type="image/x-icon" />
+        <script type="module" src="script.js"></script>
+    </head>
+    <body>
+        <div id="custom-popup" style="display: none;position: fixed;top: 0;left: 0;width: 100vw;height: 100vh;background: rgba(0, 0, 0, 0.5);z-index: 1000;justify-content: center;align-items: center;">
+            <div style="background: #fff;padding: 2em 3em;border-radius: 12px;box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);text-align: center;max-width: 90vw;">
+                <h2 style="margin-top: 0">hey wait!</h2>
+                <p>you're on the boring home page!</p>
+                <p>if you're on a phone or require accessibility, close this popup.</p>
+                <p>otherwise, click <a href="./drive/">here</a> to go to the one that's fun and interactive!</p>
+                <button id="close-popup" style="margin-top: 1.5em;padding: 0.5em 1.5em;font-size: 1.1em;border: none;border-radius: 6px;background: #0078d7;color: #fff;cursor: pointer;">close</button>
+            </div>
+        </div>
+        <script>
+            window.addEventListener("DOMContentLoaded", function () {
+            var popup = document.getElementById("custom-popup");
+            var closeBtn = document.getElementById("close-popup");
+            var inner = popup.querySelector("div");
+            popup.style.display = "flex";
+            closeBtn.onclick = function () {
+                popup.style.display = "none";
+            };
+            popup.addEventListener("click", function (e) {
+            if (!inner.contains(e.target)) {
+                popup.style.display = "none";
+            }
+            });
         });
-      });
+        </script>
+        <div class="css-wave css-wave-left"></div>
+        <div class="css-wave css-wave-right"></div>
+        <div id="content">
+            <h1>Hi, I'm KΛVIN!</h1>
+
+            <h3>Things about me</h3>
+            <ul>
+                <li>I am an aspiring software engineer, currently in high school.</li>
+                <li>I live in Princeton, NJ.</li>
+                <li>On the internet, I often go by <span class="username">NicholasIGuess</span>, <span class="username">NichSembley</span>, or sometimes<span class="username">Antipanic</span>.</li>
+                <li> I, along with a few of my friends, go to hackathons and make stuff a lot. Some of our projects are linked below!</li>
+            </ul>
+
+            <h3>Things I've made</h3>
+            <ul>
+                <li><a href="/ambulance/">Ambulance Tracker</a> (made in 8 hours for MakeSPP 2024)</li>
+                <li><a href="/memorial/">Rwandan Genocide Memorial</a> (made for World History 1 in school)</li>
+                <li><a href="/cooking/">Cooking</a> (just stuff for the cooking merit badge)</li>
+                <li><a href="/hackmato/">Hackmato</a> (a pomodoro timer for hackathons)</li>
+                <li><a href="/eightball/">Eight Ball</a> (a magic 8 ball web app)</li>
+                <li><a href="/drive/">Drive</a> (a fun and interactive version of my homepage)</li>
+                <li><a href="/blog/">Blog</a> (i write stuff sometimes i guess, click <a id="latest">here</a> for the latest post)</li>
+                <!-- <li>Tempus - work in progress so no link yet (made for fun because I was bored)</li> -->
+            </ul>
+
+            <h3>More things about me</h3>
+            <ul>
+                <li><a href="https://github.com/NicholasIGuess" target="_blank" rel="noopener noreferrer">Github</a></li>
+                <li><a href="https://www.instagram.com/enoughlovefortwo/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+                <li><a href="mailto:kavin.muthiah@gmail.com" target="_blank" rel="noopener noreferrer">Email</a></li>
+                <!--li><a href="https://www.linkedin.com/in/kavin-muthiah-0b1b2a1b6/" target="_blank" rel="noopener noreferrer">LinkedIn</a> find the right link at some point AND ADD TO DRIVE</li>-->
+            </ul>
+        </div>
+    </body>
+    <script>
+        fetch("/posts.json")
+        .then((res) => res.json())
+        .then((posts) => {
+            posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+            const latest = posts[0];
+            document.getElementById("latest").href = `/blog/${latest.slug}/`;
+        });
     </script>
-    <div class="css-wave css-wave-left"></div>
-    <div class="css-wave css-wave-right"></div>
-    <div id="content">
-      <h1>Hi, I'm KΛVIN!</h1>
-      
-      <h3>Things about me</h3>
-      <ul>
-        <li>I am an aspiring software engineer, currently in high school.</li>
-        <li>I live in Princeton, NJ.</li>
-        <li>On the internet, I often go by <span class="username">NicholasIGuess</span>, <span class="username">NichSembley</span>, or sometimes <span class="username">Antipanic</span>.</li>
-        <li>I, along with a few of my friends, go to hackathons and make stuff a lot. Some of our projects are linked below!</li>
-      </ul>
-
-      <h3>Things I've made</h3>
-      <ul>
-        <li><a href="/ambulance/">Ambulance Tracker</a> (made in 8 hours for MakeSPP 2024)</li>
-        <li><a href="/memorial/">Rwandan Genocide Memorial</a> (made for World History 1 in school)</li>
-        <li><a href="/cooking/">Cooking</a> (just stuff for the cooking merit badge)</li>
-        <li><a href="/hackmato/">Hackmato</a> (a pomodoro timer for hackathons)</li>
-        <li><a href="/eightball/">Eight Ball</a> (a magic 8 ball web app)</li>
-        <li><a href="/drive/">Drive</a> (a fun and interactive version of my homepage)</li>
-        <li>Tempus - work in progress so no link yet (made for fun because I was bored)</li>
-      </ul>
-
-      <h3>More things about me</h3>
-      <ul>  
-        <li><a href="https://github.com/NicholasIGuess" target="_blank" rel="noopener noreferrer">Github</a></li>
-        <li><a href="https://www.instagram.com/enoughlovefortwo/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
-        <li><a href="mailto:kavin.muthiah@gmail.com" target="_blank" rel="noopener noreferrer">Email</a></li>
-        <!--li><a href="https://www.linkedin.com/in/kavin-muthiah-0b1b2a1b6/" target="_blank" rel="noopener noreferrer">LinkedIn</a> find the right link at some point AND ADD TO DRIVE</li>--> 
-      </ul>
-    </div>
-  </body>
 </html>
