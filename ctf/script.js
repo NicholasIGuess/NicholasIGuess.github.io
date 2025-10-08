@@ -53,3 +53,5 @@ function decrement() {
 }
 
 setCookie('part4', 'where are the styles set?')
+
+eruda.init();
