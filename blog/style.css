@@ -1,3 +1,12 @@
+body {
+    padding-top: 2%;
+}
+
+#content {
+    margin: 5vh auto 0 auto;
+    overflow: auto;
+}
+
 blog-post {
     display: block;
     margin: 1.2rem 0;
@@ -11,6 +20,7 @@ blog-post {
     color: #232946;
     position: relative;
     transition: box-shadow 0.2s, border-color 0.2s;
+    cursor: pointer;
 }
 
 blog-post:hover {
