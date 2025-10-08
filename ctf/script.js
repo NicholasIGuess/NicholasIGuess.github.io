@@ -43,12 +43,12 @@ function eraseCookie(name) {
 }
 
 function increment() {
-    setCookie('flag', '_so_i_will')
+    setCookie('flag3', '_so_i_will')
     document.getElementById('count').textContent = parseInt(document.getElementById('count').textContent) + 1;
 }
 
 function decrement() {
-    eraseCookie('flag')
+    eraseCookie('flag3')
     document.getElementById('count').textContent = parseInt(document.getElementById('count').textContent) - 1;
 }
 
