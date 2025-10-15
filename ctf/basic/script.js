@@ -51,7 +51,3 @@ function decrement() {
     eraseCookie('flag3')
     document.getElementById('count').textContent = parseInt(document.getElementById('count').textContent) - 1;
 }
-
-setCookie('part4', 'where are the styles set?')
-
-eruda.init();

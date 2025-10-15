@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel="stylesheet" href="style.css">
+        <title>local authority</title>
+        <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
+        <script>eruda.init();</script>
+    </head>
+    <body>
+        <p id='msg'></p>
+        <form id="loginForm">
+            <input id="user" type="text" placeholder="Username" required />
+            <input id="pass" type="password" placeholder="Password" required />
+            <button type="submit">Login</button>
+        </form>
+        <script>
+            function checkPassword(username, password) {
+                return (username === 'admin' && password === 'strongPassword098765');
+            }
+            document.getElementById("loginForm").onsubmit = function(e) {
+                e.preventDefault();
+                let uname = document.getElementById("user").value;
+                let pword = document.getElementById("pass").value;
+                function filter(string) {
+                    for (let i = 0; i < string.length; i++) {
+                        let cc = string.charCodeAt(i);
+                        if (!(
+                            (cc >= 48 && cc <= 57) ||
+                            (cc >= 65 && cc <= 90) ||
+                            (cc >= 97 && cc <= 122)
+                        )) return false;
+                    }
+                    return true;
+                }
+                if (!filter(uname) || !filter(pword)) {
+                    document.getElementById("msg").innerText = "Illegal character in username or password.";
+                    return false;
+                }
+                if (checkPassword(uname, pword)) {
+                    document.getElementById("msg").innerHTML = "<b>Log In Successful!</b><br>Flag: hsnCTF{l0c4l_4uth0r1ty_12345678}";
+                    document.getElementById("loginForm").style.display = "none";
+                } else {
+                    document.getElementById("msg").innerText = "Log In Failed";
+                }
+            }
+        </script>
+    </body>
+</html>

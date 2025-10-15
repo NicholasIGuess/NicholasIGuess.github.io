@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: /
+# Here's the third part of the flag: 3s_2_lO0k

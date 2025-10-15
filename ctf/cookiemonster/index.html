@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>cookie monster</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
+        form { display: inline-block; padding: 20px; border: 1px solid #ccc; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <h1>cookie monster</h1>
+    <form id="loginForm">
+        <input type="text" name="username" placeholder="Username" required><br><br>
+        <input type="password" name="password" placeholder="Password" required><br><br>
+        <input type="submit" value="Login">
+    </form>
+    <div id="message" style="margin-top:30px;"></div>
+    <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
+    <script>eruda.init();</script>
+    <script>
+    function setCookie(name, value, days) {
+        const d = new Date();
+        d.setTime(d.getTime() + (days*24*60*60*1000));
+        let expires = "expires="+ d.toUTCString();
+        document.cookie = name + "=" + value + ";" + expires + ";path=/";
+    }
+
+    document.getElementById("loginForm").onsubmit = function(e) {
+        e.preventDefault();
+        // Always set the encoded flag cookie
+        var flag = "hsnCTF{c00k1e_m0nster_l0ves_c00kies_6C2FB7F3}";
+        var encoded = btoa(flag);
+        setCookie("secret_recipe", encoded, 1);
+        document.getElementById("message").innerHTML =
+            "<h2>Access Denied<\/h2>" +
+            "<p>Cookie Monster says: 'Me no need password. Me just need cookies!'<\/p>" +
+            "<p><strong>Hint:<\/strong> Have you checked your cookies lately?<\/p>" +
+            "<a href='./index.html'>Go back<\/a>";
+        // Hide the form after submit
+        document.getElementById("loginForm").style.display = "none";
+        return false;
+    }
+    </script>
+</body>
+</html>
